@@ -45,8 +45,18 @@ module.exports = {
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'public/.nojekyll', to: '.nojekyll', noErrorOnMissing: true },
-        { from: 'CNAME', to: 'CNAME', noErrorOnMissing: true },
+        { 
+          from: 'public/.nojekyll', 
+          to: '.nojekyll',
+          noErrorOnMissing: true,
+          force: true
+        },
+        { 
+          from: 'CNAME', 
+          to: 'CNAME',
+          noErrorOnMissing: true,
+          force: true
+        },
       ],
     }),
   ],

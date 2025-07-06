@@ -38,11 +38,13 @@ jobs:
       - name: Build application
         run: |
           npm run build
-          # Copy static files to root of dist
-          cp CNAME dist/CNAME 2>/dev/null || echo "CNAME file not found"
-          cp public/.nojekyll dist/.nojekyll 2>/dev/null || echo ".nojekyll file not found"
+          # Fix file copying issues
+          cp CNAME dist/ 2>/dev/null || echo "CNAME file not found"
+          cp public/.nojekyll dist/ 2>/dev/null || echo ".nojekyll file not found"
           # Remove any incorrectly nested directories
           rm -rf dist/CNAME/CNAME dist/.nojekyll/.nojekyll 2>/dev/null || true
+          # Ensure files are in the right place
+          ls -la dist/
         
       - name: Setup Pages
         uses: actions/configure-pages@v4
