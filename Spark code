@@ -1,0 +1,231 @@
+import * as React from "react";
+import { createRoot } from "react-dom/client";
+import { 
+  SparkApp, 
+  PageContainer,
+  Input,
+  Button,
+  Card,
+  Switch
+} from "@github/spark/components";
+import { MagnifyingGlass, User, EyeSlash, Eye, MapPin } from "@phosphor-icons/react";
+
+function GitHubUserLookup() {
+  const [username, setUsername] = React.useState("");
+  const [userData, setUserData] = React.useState(null);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
+  const [avatarDescription, setAvatarDescription] = React.useState("");
+  const [locationInsights, setLocationInsights] = React.useState("");
+  const [isAvatarGenerating, setIsAvatarGenerating] = React.useState(false);
+  const [isLocationGenerating, setIsLocationGenerating] = React.useState(false);
+  const [showRedacted, setShowRedacted] = React.useState(true);
+  const [autoAnalyze, setAutoAnalyze] = React.useState(false);
+
+  // Helper function to create redacted text
+  const getRedactedText = (text) => {
+    return '*'.repeat(Math.max(10, text.length));
+  };
+
+  const fetchUserData = async () => {
+    if (!username.trim()) return;
+
+    setIsLoading(true);
+    setError(null);
+    setAvatarDescription("");
+    setLocationInsights("");
+    try {
+      const response = await spark.octokit.request('GET /users/{username}', {
+        username: username.trim(),
+      });
+      setUserData(response.data);
+      setShowRedacted(true); // Reset to redacted view on new search
+      
+      // Auto-analyze if enabled
+      if (autoAnalyze) {
+        setTimeout(() => {
+          generateAvatarDescription();
+          if (response.data.location) {
+            generateLocationInsights();
+          }
+        }, 500); // Small delay to let the UI update first
+      }
+    } catch (err) {
+      setError('User not found');
+      setUserData(null);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const generateAvatarDescription = async () => {
+    if (!userData?.avatar_url) return;
+    setIsAvatarGenerating(true);
+    setAvatarDescription("");
+    const prompt = spark.llmPrompt`Describe this GitHub user's avatar image in a fun and engaging way (in 2-3 sentences): ${userData.avatar_url}`;
+    try {
+      let description = "";
+      for await (const chunk of spark.llmStreaming(prompt)) {
+        description += chunk;
+        setAvatarDescription(description);
+      }
+    } finally {
+      setIsAvatarGenerating(false);
+    }
+  };
+
+  const generateLocationInsights = async () => {
+    if (!userData?.location) return;
+    setIsLocationGenerating(true);
+    setLocationInsights("");
+    const prompt = spark.llmPrompt`Share an interesting fact or observation about this location in a fun way (in 1-2 sentences): ${userData.location}`;
+    try {
+      let insights = "";
+      for await (const chunk of spark.llmStreaming(prompt)) {
+        insights += chunk;
+        setLocationInsights(insights);
+      }
+    } finally {
+      setIsLocationGenerating(false);
+    }
+  };
+
+  return (
+    <SparkApp>
+      <PageContainer maxWidth="small">
+        <div className="flex flex-col gap-4 mb-4">
+          <div className="flex gap-2">
+            <Input
+              icon={<User />}
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter GitHub username"
+              onKeyUp={(e) => e.key === 'Enter' && fetchUserData()}
+            />
+            <Button 
+              variant="primary"
+              icon={<MagnifyingGlass />}
+              onClick={fetchUserData}
+              disabled={isLoading}
+            >
+              Search
+            </Button>
+          </div>
+          
+          <div className="flex items-center gap-2">
+            <Switch 
+              checked={autoAnalyze}
+              onCheckedChange={setAutoAnalyze}
+            />
+            <span className="text-sm text-fg-secondary">
+              Auto-analyze profile on search
+            </span>
+          </div>
+        </div>
+
+        {isLoading && (
+          <div className="text-center text-fg-secondary">Loading...</div>
+        )}
+
+        {error && (
+          <div className="text-accent-9 text-center p-4">{error}</div>
+        )}
+
+        {userData && (
+          <Card>
+            <div className="flex items-start gap-4">
+              <div className="relative">
+                <div className={`relative ${isAvatarGenerating ? 'animate-pulse bg-neutral-3' : ''}`}>
+                  {showRedacted ? (
+                    <div className="w-16 h-16 rounded-full bg-neutral-3 flex items-center justify-center">
+                      <User className="w-8 h-8 text-neutral-6" />
+                    </div>
+                  ) : (
+                    <img 
+                      src={userData.avatar_url} 
+                      alt={`${userData.login}'s avatar`}
+                      className={`w-16 h-16 rounded-full ${isAvatarGenerating ? 'opacity-50' : ''}`}
+                    />
+                  )}
+                </div>
+                <Button 
+                  variant="plain"
+                  icon={showRedacted ? <Eye /> : <EyeSlash />}
+                  className="mt-2"
+                  onClick={() => setShowRedacted(!showRedacted)}
+                  aria-label={showRedacted ? "Show profile info" : "Hide profile info"}
+                />
+                <Button 
+                  variant="plain"
+                  className="mt-2 text-sm"
+                  onClick={generateAvatarDescription}
+                  disabled={isAvatarGenerating}
+                >
+                  {isAvatarGenerating ? 'Analyzing...' : avatarDescription ? 'Regenerate analysis' : 'Analyze avatar'}
+                </Button>
+                {avatarDescription && (
+                  <div className="mt-2 text-sm text-fg-secondary">{avatarDescription}</div>
+                )}
+              </div>
+              <div className="flex-1">
+                <h2 className="text-xl font-semibold">{userData.name || userData.login}</h2>
+                <p className="text-fg-secondary">@{userData.login}</p>
+                {userData.bio && (
+                  <div className="mt-2">
+                    {showRedacted ? (
+                      <p className="font-mono">{getRedactedText(userData.bio)}</p>
+                    ) : (
+                      <p>{userData.bio}</p>
+                    )}
+                  </div>
+                )}
+                {userData.location && (
+                  <div className={`mt-2 flex items-start gap-2 ${isLocationGenerating ? 'animate-pulse bg-neutral-3' : ''}`}>
+                    <MapPin className="mt-1 text-accent-9" />
+                    {showRedacted ? (
+                      <p className="font-mono">{getRedactedText(userData.location)}</p>
+                    ) : (
+                      <div className="flex-1">
+                        <p className={isLocationGenerating ? 'opacity-50' : ''}>{userData.location}</p>
+                        <Button 
+                          variant="plain"
+                          className="mt-1 text-sm"
+                          onClick={generateLocationInsights}
+                          disabled={isLocationGenerating}
+                        >
+                          {isLocationGenerating ? 'Analyzing...' : locationInsights ? 'Regenerate insights' : 'Get location insights'}
+                        </Button>
+                        {locationInsights && (
+                          <div className="mt-1 text-sm text-fg-secondary">{locationInsights}</div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+                <div className="mt-4 flex gap-4">
+                  <div>
+                    <span className="font-semibold">{userData.followers}</span>
+                    <span className="text-fg-secondary ml-1">followers</span>
+                  </div>
+                  <div>
+                    <span className="font-semibold">{userData.following}</span>
+                    <span className="text-fg-secondary ml-1">following</span>
+                  </div>
+                  <div>
+                    <span className="font-semibold">{userData.public_repos}</span>
+                    <span className="text-fg-secondary ml-1">repos</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Card>
+        )}
+      </PageContainer>
+    </SparkApp>
+  );
+}
+
+const root = createRoot(document.getElementById("root"));
+root.render(<GitHubUserLookup />);
+
