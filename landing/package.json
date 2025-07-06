@@ -1,0 +1,24 @@
+{
+  "name": "octomask-landing",
+  "version": "1.0.0",
+  "description": "Landing page for OctoMask - Privacy-First GitHub Profile Viewer",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 8080 --directory landing",
+    "dev-node": "npx serve landing -l 8080",
+    "build": "echo 'Static site - no build required'",
+    "deploy": "echo 'Copy landing/ folder to your hosting platform'"
+  },
+  "keywords": [
+    "github",
+    "profile-viewer", 
+    "privacy",
+    "landing-page",
+    "static-site"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.0"
+  }
+}

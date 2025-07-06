@@ -1,0 +1,56 @@
+<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle with gradient -->
+  <defs>
+    <radialGradient id="bgGradient" cx="0.5" cy="0.3" r="0.8">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e1b4b;stop-opacity:1" />
+    </radialGradient>
+    <linearGradient id="maskGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Main background -->
+  <circle cx="40" cy="40" r="38" fill="url(#bgGradient)" stroke="#e5e7eb" stroke-width="2"/>
+  
+  <!-- Octopus body -->
+  <ellipse cx="40" cy="34" rx="16" ry="12" fill="#f8fafc"/>
+  
+  <!-- Tentacles -->
+  <path d="M24 40 C22 44, 20 48, 22 50 C24 48, 26 44, 28 40" fill="#f8fafc"/>
+  <path d="M56 40 C58 44, 60 48, 58 50 C56 48, 54 44, 52 40" fill="#f8fafc"/>
+  <path d="M30 44 C28 48, 26 52, 28 54 C30 52, 32 48, 34 44" fill="#f8fafc"/>
+  <path d="M50 44 C52 48, 54 52, 52 54 C50 52, 48 48, 46 44" fill="#f8fafc"/>
+  
+  <!-- Eyes before mask -->
+  <circle cx="34" cy="32" r="3" fill="#1f2937"/>
+  <circle cx="46" cy="32" r="3" fill="#1f2937"/>
+  <circle cx="34.5" cy="31.5" r="1" fill="#f8fafc"/>
+  <circle cx="46.5" cy="31.5" r="1" fill="#f8fafc"/>
+  
+  <!-- Privacy mask with gradient -->
+  <rect x="28" y="26" width="24" height="12" rx="6" fill="url(#maskGradient)" opacity="0.95"/>
+  
+  <!-- Mask details -->
+  <rect x="30" y="28" width="5" height="8" rx="2.5" fill="#1e3a8a" opacity="0.7"/>
+  <rect x="45" y="28" width="5" height="8" rx="2.5" fill="#1e3a8a" opacity="0.7"/>
+  
+  <!-- Mask strap -->
+  <path d="M28 32 C20 30, 12 32, 8 36" stroke="#1e3a8a" stroke-width="2" fill="none"/>
+  <path d="M52 32 C60 30, 68 32, 72 36" stroke="#1e3a8a" stroke-width="2" fill="none"/>
+  
+  <!-- Mouth -->
+  <ellipse cx="40" cy="42" rx="3" ry="1.5" fill="#1f2937"/>
+  
+  <!-- Decorative privacy symbols -->
+  <circle cx="65" cy="20" r="2" fill="#60a5fa" opacity="0.6"/>
+  <circle cx="15" cy="60" r="1.5" fill="#60a5fa" opacity="0.4"/>
+  <circle cx="68" cy="60" r="1" fill="#60a5fa" opacity="0.5"/>
+  
+  <!-- Lock icon for privacy -->
+  <g transform="translate(58, 12)">
+    <rect x="0" y="4" width="8" height="6" rx="1" fill="#3b82f6" opacity="0.8"/>
+    <path d="M2 4 C2 2, 4 0, 6 2 C6 4" stroke="#3b82f6" stroke-width="1.5" fill="none"/>
+  </g>
+</svg>

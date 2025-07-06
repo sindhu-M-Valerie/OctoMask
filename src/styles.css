@@ -1,0 +1,205 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+/* Sparkling Background Animation */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.5) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(180deg);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  25% {
+    transform: translateY(-20px) translateX(5px);
+  }
+  50% {
+    transform: translateY(-30px) translateX(-5px);
+  }
+  75% {
+    transform: translateY(-15px) translateX(8px);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 20px rgba(168, 85, 247, 0.4), 0 0 40px rgba(236, 72, 153, 0.3), 0 0 60px rgba(59, 130, 246, 0.2);
+  }
+  50% {
+    text-shadow: 0 0 30px rgba(168, 85, 247, 0.6), 0 0 60px rgba(236, 72, 153, 0.5), 0 0 90px rgba(59, 130, 246, 0.4);
+  }
+}
+
+.sparkles-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.sparkle {
+  position: absolute;
+  font-size: 28px;
+  animation: twinkle 5s ease-in-out infinite, float 7s ease-in-out infinite;
+  user-select: none;
+  filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.4));
+}
+
+.sparkle-1 { top: 15%; left: 20%; animation-delay: 0s; font-size: 32px; }
+.sparkle-2 { top: 25%; left: 75%; animation-delay: 1.2s; font-size: 28px; }
+.sparkle-3 { top: 45%; left: 15%; animation-delay: 2.4s; font-size: 30px; }
+.sparkle-4 { top: 35%; left: 80%; animation-delay: 3.6s; font-size: 26px; }
+.sparkle-5 { top: 65%; left: 25%; animation-delay: 1.8s; font-size: 32px; }
+.sparkle-6 { top: 75%; left: 70%; animation-delay: 0.6s; font-size: 28px; }
+.sparkle-7 { top: 55%; left: 50%; animation-delay: 3.0s; font-size: 30px; }
+.sparkle-8 { top: 85%; left: 45%; animation-delay: 4.2s; font-size: 26px; }
+
+@layer base {
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    background: #ffffff;
+    color: #24292f;
+    transition: all 0.3s ease;
+  }
+  
+  body.dark {
+    background: #0d1117;
+    color: #f0f6fc;
+  }
+}
+
+@layer components {
+  .gradient-text {
+    background: linear-gradient(135deg, #a855f7, #ec4899, #3b82f6, #10b981);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-shift 4s ease infinite, glow 3s ease-in-out infinite;
+  }
+  
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  .btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid;
+    cursor: pointer;
+  }
+  
+  .btn-primary {
+    background: #238636;
+    border-color: #238636;
+    color: #ffffff;
+  }
+  
+  .btn-primary:hover {
+    background: #2ea043;
+  }
+  
+  .btn-secondary {
+    background: #21262d;
+    border-color: #30363d;
+    color: #f0f6fc;
+  }
+  
+  body:not(.dark) .btn-secondary {
+    background: #f6f8fa;
+    border-color: #d0d7de;
+    color: #24292f;
+  }
+  
+  .btn-secondary:hover {
+    background: #30363d;
+    border-color: #8b949e;
+  }
+  
+  body:not(.dark) .btn-secondary:hover {
+    background: #f3f4f6;
+    border-color: #d0d7de;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid;
+    transition: all 0.2s ease;
+    background: #0d1117;
+    border-color: #30363d;
+    color: #f0f6fc;
+  }
+  
+  body:not(.dark) .input {
+    background: #ffffff;
+    border-color: #d0d7de;
+    color: #24292f;
+  }
+  
+  .input:focus {
+    border-color: #58a6ff;
+    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+    outline: none;
+  }
+  
+  .input::placeholder {
+    color: #7d8590;
+  }
+  
+  body:not(.dark) .input::placeholder {
+    color: #656d76;
+  }
+  
+  .card {
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    border: 1px solid;
+    padding: 24px;
+    transition: all 0.2s ease;
+    background: #161b22;
+    border-color: #30363d;
+  }
+  
+  body:not(.dark) .card {
+    background: #ffffff;
+    border-color: #d0d7de;
+  }
+  
+  .profile-stat {
+    font-size: 14px;
+    color: #7d8590;
+  }
+  
+  body:not(.dark) .profile-stat {
+    color: #656d76;
+  }
+  
+  .profile-stat-number {
+    font-weight: 600;
+    color: #f0f6fc;
+  }
+  
+  body:not(.dark) .profile-stat-number {
+    color: #24292f;
+  }
+}

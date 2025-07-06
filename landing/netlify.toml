@@ -1,0 +1,37 @@
+# Netlify deployment configuration
+[build]
+  publish = "landing"
+  command = "echo 'Static site - no build required'"
+
+[[redirects]]
+  from = "/app"
+  to = "https://your-app-domain.com"
+  status = 302
+
+[[redirects]]
+  from = "/github"
+  to = "https://github.com/yourusername/octomask"
+  status = 302
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"

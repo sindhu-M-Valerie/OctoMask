@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OctoMask - Privacy-First GitHub Profile Viewer</title>
+    <meta name="description" content="OctoMask is a privacy-first GitHub profile viewer that lets you reveal or conceal profile information with style. Where your code wears its boldest face.">
+    <meta name="keywords" content="GitHub, profile viewer, privacy, developer tools, open source">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://octomask.io/">
+    <meta property="og:title" content="OctoMask - Privacy-First GitHub Profile Viewer">
+    <meta property="og:description" content="Reveal. Conceal. Commit. A privacy-first GitHub profile viewer with style.">
+    <meta property="og:image" content="https://octomask.io/og-image.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://octomask.io/">
+    <meta property="twitter:title" content="OctoMask - Privacy-First GitHub Profile Viewer">
+    <meta property="twitter:description" content="Reveal. Conceal. Commit. A privacy-first GitHub profile viewer with style.">
+    <meta property="twitter:image" content="https://octomask.io/og-image.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+    <link rel="alternate icon" href="./favicon.ico">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <!-- Background Sparkles -->
+    <div class="sparkles-container">
+        <div class="sparkle sparkle-1">🎭</div>
+        <div class="sparkle sparkle-2">🎭</div>
+        <div class="sparkle sparkle-3">�</div>
+        <div class="sparkle sparkle-4">🎭</div>
+        <div class="sparkle sparkle-5">�</div>
+        <div class="sparkle sparkle-6">�</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <svg class="nav-logo" viewBox="0 0 100 100" width="32" height="32">
+                    <!-- Octocat head -->
+                    <circle cx="50" cy="50" r="35" fill="#58a6ff" stroke="#ffffff" stroke-width="2"/>
+                    <!-- Eyes -->
+                    <circle cx="42" cy="45" r="3" fill="#ffffff"/>
+                    <circle cx="58" cy="45" r="3" fill="#ffffff"/>
+                    <!-- Nose -->
+                    <circle cx="50" cy="52" r="1.5" fill="#ffffff"/>
+                    <!-- Mouth -->
+                    <path d="M 45 58 Q 50 62 55 58" stroke="#ffffff" stroke-width="2" fill="none"/>
+                    <!-- Mask overlay -->
+                    <rect x="35" y="40" width="30" height="20" rx="3" fill="#21262d" opacity="0.8"/>
+                    <rect x="37" y="42" width="26" height="16" rx="2" fill="none" stroke="#58a6ff" stroke-width="1"/>
+                </svg>
+                <span class="nav-title gradient-text">OctoMask</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#demo" class="nav-link">Demo</a>
+                <a href="#github" class="nav-link">GitHub</a>
+                <a href="https://sindhu-m-valerie.github.io/OctoMask" class="nav-link cta-button">Launch App</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-logo">
+                    <svg viewBox="0 0 120 120" width="120" height="120">
+                        <!-- Octocat head -->
+                        <circle cx="60" cy="60" r="45" fill="#58a6ff" stroke="#ffffff" stroke-width="3"/>
+                        <!-- Eyes -->
+                        <circle cx="48" cy="52" r="4" fill="#ffffff"/>
+                        <circle cx="72" cy="52" r="4" fill="#ffffff"/>
+                        <!-- Nose -->
+                        <circle cx="60" cy="62" r="2" fill="#ffffff"/>
+                        <!-- Mouth -->
+                        <path d="M 50 72 Q 60 78 70 72" stroke="#ffffff" stroke-width="3" fill="none"/>
+                        <!-- Mask overlay -->
+                        <rect x="35" y="45" width="50" height="30" rx="5" fill="#21262d" opacity="0.8"/>
+                        <rect x="38" y="48" width="44" height="24" rx="3" fill="none" stroke="#58a6ff" stroke-width="2"/>
+                        <!-- Mask details -->
+                        <circle cx="45" cy="58" r="1" fill="#58a6ff"/>
+                        <circle cx="75" cy="58" r="1" fill="#58a6ff"/>
+                    </svg>
+                </div>
+                
+                <h1 class="hero-title gradient-text">OctoMask</h1>
+                <p class="hero-subtitle">Privacy-First GitHub Profile Viewer</p>
+                <p class="hero-tagline">🎭 Reveal. Conceal. Commit. 🎭</p>
+                
+                <div class="hero-actions">
+                    <a href="https://sindhu-m-valerie.github.io/OctoMask" class="btn btn-primary">
+                        <span>Launch App</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"/>
+                        </svg>
+                    </a>
+                    <a href="#demo" class="btn btn-secondary">
+                        <span>See Demo</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm7-3.25v2.992l2.028.812a.75.75 0 0 1-.557 1.392l-2.5-1A.751.751 0 0 1 7 8.25v-3.5a.75.75 0 0 1 1.5 0Z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="features-container">
+            <h2 class="section-title">Features</h2>
+            <p class="section-subtitle">Everything you need for privacy-conscious GitHub profile viewing</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎭</div>
+                    <h3>Privacy Toggle</h3>
+                    <p>Instantly reveal or conceal profile information with a single click. Perfect for demos and presentations.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌙</div>
+                    <h3>Dark Theme</h3>
+                    <p>Beautiful dark theme inspired by GitHub's interface. Easy on the eyes for extended use.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Real-time Search</h3>
+                    <p>Search GitHub users instantly with real-time API integration and comprehensive error handling.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Modern UI</h3>
+                    <p>Clean, responsive design with smooth animations and sparkling background effects.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Privacy First</h3>
+                    <p>No data collection, no tracking. Your searches and interactions remain completely private.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Responsive</h3>
+                    <p>Works perfectly on desktop, tablet, and mobile devices with adaptive layouts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="demo">
+        <div class="demo-container">
+            <h2 class="section-title">See It In Action</h2>
+            <p class="section-subtitle">Watch how OctoMask transforms GitHub profile viewing</p>
+            
+            <div class="demo-preview">
+                <div class="demo-browser">
+                    <div class="browser-header">
+                        <div class="browser-controls">
+                            <div class="control-dot red"></div>
+                            <div class="control-dot yellow"></div>
+                            <div class="control-dot green"></div>
+                        </div>
+                        <div class="browser-url">octomask.io/app</div>
+                    </div>
+                    <div class="browser-content">
+                        <div class="demo-app-preview">
+                            <div class="demo-logo">
+                                <svg viewBox="0 0 60 60" width="48" height="48">
+                                    <circle cx="30" cy="30" r="25" fill="#58a6ff"/>
+                                    <circle cx="24" cy="26" r="2" fill="#ffffff"/>
+                                    <circle cx="36" cy="26" r="2" fill="#ffffff"/>
+                                    <circle cx="30" cy="32" r="1" fill="#ffffff"/>
+                                    <path d="M 24 36 Q 30 40 36 36" stroke="#ffffff" stroke-width="2" fill="none"/>
+                                    <rect x="18" y="22" width="24" height="16" rx="2" fill="#21262d" opacity="0.8"/>
+                                </svg>
+                                <h3 class="demo-app-title gradient-text">OctoMask</h3>
+                            </div>
+                            <div class="demo-search">
+                                <input type="text" placeholder="Enter GitHub username" class="demo-input" readonly>
+                                <button class="demo-button">Search</button>
+                            </div>
+                            <div class="demo-profile">
+                                <div class="demo-avatar"></div>
+                                <div class="demo-info">
+                                    <div class="demo-name">*********</div>
+                                    <div class="demo-username">*******</div>
+                                </div>
+                                <button class="demo-toggle">👁️ Reveal</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="demo-actions">
+                <a href="https://sindhu-m-valerie.github.io/OctoMask" class="btn btn-primary">Try It Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-container">
+            <h2>Ready to mask your profiles?</h2>
+            <p>Join developers who value privacy and style in their GitHub workflow.</p>
+            <div class="cta-actions">
+                <a href="https://sindhu-m-valerie.github.io/OctoMask" class="btn btn-primary btn-lg">Launch OctoMask</a>
+                <a href="https://github.com/sindhu-M-Valerie/OctoMask" class="btn btn-secondary btn-lg">View on GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <svg class="footer-logo" viewBox="0 0 60 60" width="32" height="32">
+                        <circle cx="30" cy="30" r="25" fill="#58a6ff"/>
+                        <circle cx="24" cy="26" r="2" fill="#ffffff"/>
+                        <circle cx="36" cy="26" r="2" fill="#ffffff"/>
+                        <circle cx="30" cy="32" r="1" fill="#ffffff"/>
+                        <path d="M 24 36 Q 30 40 36 36" stroke="#ffffff" stroke-width="2" fill="none"/>
+                        <rect x="18" y="22" width="24" height="16" rx="2" fill="#21262d" opacity="0.8"/>
+                    </svg>
+                    <span class="footer-title">OctoMask</span>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Product</h4>
+                        <a href="https://sindhu-m-valerie.github.io/OctoMask">Launch App</a>
+                        <a href="#features">Features</a>
+                        <a href="#demo">Demo</a>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Resources</h4>
+                        <a href="https://github.com/sindhu-M-Valerie/OctoMask">GitHub</a>
+                        <a href="https://github.com/sindhu-M-Valerie/OctoMask/issues">Report Issues</a>
+                        <a href="https://github.com/sindhu-M-Valerie/OctoMask/blob/main/README.md">Documentation</a>
+                    </div>
+                    
+                    <div class="footer-section">
+                        <h4>Connect</h4>
+                        <a href="https://twitter.com/yourusername">Twitter</a>
+                        <a href="https://linkedin.com/in/yourusername">LinkedIn</a>
+                        <a href="mailto:hello@octomask.io">Contact</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 OctoMask. Open source with ❤️</p>
+                <p class="footer-tagline">🎭 Where your code wears its boldest face 🎭</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./script.js"></script>
+</body>
+</html>
