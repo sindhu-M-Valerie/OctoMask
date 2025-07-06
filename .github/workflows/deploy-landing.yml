@@ -37,7 +37,7 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./landing
-        cname: octomask.io  # Replace with your domain
+        cname: octomask.io  # Replace with your domain if you have one
         
     - name: Deploy to Netlify
       if: github.ref == 'refs/heads/main'

@@ -5,12 +5,12 @@
 
 [[redirects]]
   from = "/app"
-  to = "https://your-app-domain.com"
+  to = "https://sindhu-m-valerie.github.io/OctoMask"
   status = 302
 
 [[redirects]]
   from = "/github"
-  to = "https://github.com/yourusername/octomask"
+  to = "https://github.com/sindhu-M-Valerie/OctoMask"
   status = 302
 
 [[headers]]

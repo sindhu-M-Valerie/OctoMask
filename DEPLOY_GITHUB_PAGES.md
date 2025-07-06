@@ -27,7 +27,7 @@ This guide will help you deploy your OctoMask app to GitHub Pages with a custom 
    ```
    Type: CNAME
    Name: www (or @)
-   Value: sindhu-m-valerie.github.io
+   Value: yourusername.github.io
    ```
 
 3. **Add A records** for apex domain:
@@ -129,9 +129,9 @@ npm run preview
 
 ## 🌐 URLs
 
-- **Repository**: `https://github.com/sindhu-M-Valerie/OctoMask`
-- **GitHub Pages**: `https://sindhu-m-valerie.github.io/OctoMask`
-- **Custom Domain**: `https://octomask.io` (when configured)
+- **Repository**: `https://github.com/yourusername/octomask`
+- **GitHub Pages**: `https://yourusername.github.io/octomask`
+- **Custom Domain**: `https://octomask.io`
 
 ## 🚨 Troubleshooting
 

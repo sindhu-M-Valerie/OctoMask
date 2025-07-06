@@ -9,12 +9,12 @@
     "redirects": [
       {
         "source": "/app",
-        "destination": "https://your-app-domain.com",
+        "destination": "https://sindhu-m-valerie.github.io/OctoMask",
         "type": 302
       },
       {
         "source": "/github", 
-        "destination": "https://github.com/yourusername/octomask",
+        "destination": "https://github.com/sindhu-M-Valerie/OctoMask",
         "type": 302
       }
     ],

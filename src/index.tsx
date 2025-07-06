@@ -63,7 +63,7 @@ function OctoMaskApp() {
   };
 
   const getRedactedText = (text: string) => {
-    return '*'.repeat(Math.max(3, text.length));
+    return '*****';
   };
 
   return (
@@ -76,11 +76,11 @@ function OctoMaskApp() {
         <div className="sparkle sparkle-1">🎭</div>
         <div className="sparkle sparkle-2">🎭</div>
         <div className="sparkle sparkle-3">🎭</div>
-        <div className="sparkle sparkle-4">�</div>
-        <div className="sparkle sparkle-5">�</div>
-        <div className="sparkle sparkle-6">�</div>
+        <div className="sparkle sparkle-4">🎭</div>
+        <div className="sparkle sparkle-5">🎭</div>
+        <div className="sparkle sparkle-6">🎭</div>
         <div className="sparkle sparkle-7">🎭</div>
-        <div className="sparkle sparkle-8">�</div>
+        <div className="sparkle sparkle-8">🎭</div>
       </div>
       
       <div className="max-w-5xl mx-auto p-6 relative z-10">
@@ -222,19 +222,19 @@ function OctoMaskApp() {
                   <div className="grid grid-cols-3 gap-6 text-center">
                     <div>
                       <div className="text-2xl font-bold profile-stat-number">
-                        {showRedacted ? '***' : userData.followers.toLocaleString()}
+                        {showRedacted ? '*****' : userData.followers.toLocaleString()}
                       </div>
                       <div className="profile-stat">followers</div>
                     </div>
                     <div>
                       <div className="text-2xl font-bold profile-stat-number">
-                        {showRedacted ? '***' : userData.following.toLocaleString()}
+                        {showRedacted ? '*****' : userData.following.toLocaleString()}
                       </div>
                       <div className="profile-stat">following</div>
                     </div>
                     <div>
                       <div className="text-2xl font-bold profile-stat-number">
-                        {showRedacted ? '***' : userData.public_repos.toLocaleString()}
+                        {showRedacted ? '*****' : userData.public_repos.toLocaleString()}
                       </div>
                       <div className="profile-stat">repositories</div>
                     </div>
