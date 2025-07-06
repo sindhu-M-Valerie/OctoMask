@@ -51,12 +51,7 @@ module.exports = {
           noErrorOnMissing: true,
           force: true
         },
-        { 
-          from: 'CNAME', 
-          to: 'CNAME',
-          noErrorOnMissing: true,
-          force: true
-        },
+        // Removed CNAME for now - custom domain needs proper DNS setup
       ],
     }),
   ],
