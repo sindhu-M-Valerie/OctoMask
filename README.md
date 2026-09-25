@@ -26,4 +26,4 @@ The UI displays loading indicators and handles user-not-found errors gracefully.
 **In summary:**
 This app is a privacy-friendly GitHub profile search tool with fun AI-powered extras for avatar and location, giving users control over what profile info is revealed.
 
-<img width="388" alt="Screenshot 2025-07-04 at 11 18 55 PM" src="https://github.com/user-attachments/assets/2fe5edad-fc12-46dd-bada-f09166cc0ddc" />
+<img width="506" height="509" alt="Screenshot 2026-09-25 at 6 07 15 PM" src="https://github.com/user-attachments/assets/bd44b078-d690-49df-a8ce-0952526af4c1" />
