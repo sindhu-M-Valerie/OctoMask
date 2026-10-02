@@ -76,7 +76,7 @@ function OctoMaskApp() {
       <header className="topbar">
         <div className="brand">
           <OctoMaskLogo size={140} />
-          <p className="brand-caption">See the profile. Reveal only what you choose.</p>
+          <p className="brand-caption"><strong>Privacy by default. Curiosity by choice.</strong></p>
         </div>
         <div className="privacy-indicator">
           <span className="privacy-dot" />
