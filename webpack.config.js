@@ -45,6 +45,10 @@ module.exports = {
     }),
     new CopyWebpackPlugin({
       patterns: [
+        {
+          from: 'public/octomask.png',
+          to: 'octomask.png',
+        },
         { 
           from: 'public/.nojekyll', 
           to: '.nojekyll',

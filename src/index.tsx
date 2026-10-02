@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
-import { MagnifyingGlass, User, EyeSlash, Eye, MapPin } from '@phosphor-icons/react';
+import { MagnifyingGlass, User, EyeSlash, Eye, MapPin, X } from '@phosphor-icons/react';
 import OctoMaskLogo from './OctoMaskLogo.jsx';
 import './styles.css';
 
@@ -24,8 +24,6 @@ function OctoMaskApp() {
 
   useEffect(() => {
     document.body.className = 'dark';
-    document.body.style.background = '#0d1117';
-    document.body.style.color = '#f0f6fc';
   }, []);
 
   const fetchUserData = async () => {
@@ -34,6 +32,7 @@ function OctoMaskApp() {
     setIsLoading(true);
     setError(null);
     setUserData(null);
+    setShowRedacted(true);
 
     try {
       const response = await fetch(`https://api.github.com/users/${username.trim()}`);
@@ -56,10 +55,16 @@ function OctoMaskApp() {
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      fetchUserData();
-    }
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    void fetchUserData();
+  };
+
+  const clearSearch = () => {
+    setUsername('');
+    setUserData(null);
+    setError(null);
+    setShowRedacted(true);
   };
 
   const getRedactedText = (text: string) => {
@@ -67,191 +72,166 @@ function OctoMaskApp() {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{ 
-      background: '#0d1117',
-      color: '#f0f6fc'
-    }}>
-      {/* Sparkling Background */}
-      <div className="sparkles-container">
-        <div className="sparkle sparkle-1">🎭</div>
-        <div className="sparkle sparkle-2">🎭</div>
-        <div className="sparkle sparkle-3">🎭</div>
-        <div className="sparkle sparkle-4">🎭</div>
-        <div className="sparkle sparkle-5">🎭</div>
-        <div className="sparkle sparkle-6">🎭</div>
-        <div className="sparkle sparkle-7">🎭</div>
-        <div className="sparkle sparkle-8">🎭</div>
-      </div>
-      
-      <div className="max-w-5xl mx-auto p-6 relative z-10">
-        {/* Header */}
-        <header className="flex flex-col items-center text-center mb-8 py-4">
-          <div className="flex items-center gap-4 mb-4">
-            <OctoMaskLogo size={64} color="#58a6ff" textColor="transparent" />
-            <div>
-              <h1 className="text-6xl font-black gradient-text">
-                OctoMask
-              </h1>
-            </div>
-          </div>
-          <p className="text-lg mb-4" style={{ 
-            color: '#7d8590' 
-          }}>
-            🎭 Reveal. Conceal. Commit. 🎭
-          </p>
-        </header>
-
-        {/* Search */}
-        <div className="mb-8">
-          <div className="max-w-md mx-auto">
-            <div className="flex gap-3">
-              <div className="relative flex-1">
-                <User className="absolute left-3 top-1/2 transform -translate-y-1/2" style={{ color: '#7d8590' }} size={16} />
-                <input
-                  type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder="Enter GitHub username"
-                  className="input pl-10"
-                  disabled={isLoading}
-                />
-              </div>
-              <button 
-                onClick={fetchUserData}
-                disabled={isLoading || !username.trim()}
-                className="btn btn-primary flex items-center gap-2 px-4"
-              >
-                <MagnifyingGlass size={16} />
-                {isLoading ? 'Searching...' : 'Search'}
-              </button>
-            </div>
-          </div>
+    <div className="app-shell">
+      <header className="topbar">
+        <div className="brand">
+          <OctoMaskLogo size={140} />
+          <p className="brand-caption">See the profile. Reveal only what you choose.</p>
         </div>
+        <div className="privacy-indicator">
+          <span className="privacy-dot" />
+          Private by default
+        </div>
+      </header>
 
-        {/* Error */}
-        {error && (
-          <div className="max-w-md mx-auto mb-6 p-3 rounded-md border" style={{ 
-            backgroundColor: '#f85149', 
-            borderColor: '#f85149', 
-            color: '#ffffff' 
-          }}>
-            {error}
+      <main className="workspace">
+        <section className="lookup-section" aria-labelledby="lookup-title">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Profile lookup</p>
+              <h1 id="lookup-title">Find a GitHub profile</h1>
+            </div>
+            <p className="privacy-note">Public data only <span aria-hidden="true">·</span> Nothing saved</p>
+          </div>
+
+          <form className="search-form" onSubmit={handleSubmit}>
+            <div className="search-field">
+              <User size={18} aria-hidden="true" />
+              <input
+                type="text"
+                value={username}
+                onChange={(event) => {
+                  setUsername(event.target.value);
+                  setError(null);
+                }}
+                placeholder="GitHub username"
+                aria-label="GitHub username"
+                autoComplete="off"
+                disabled={isLoading}
+              />
+              {username && (
+                <button
+                  type="button"
+                  className="clear-search"
+                  onClick={clearSearch}
+                  disabled={isLoading}
+                  aria-label="Clear search"
+                  title="Clear search"
+                >
+                  <X size={18} aria-hidden="true" />
+                </button>
+              )}
+            </div>
+            <button
+              type="submit"
+              className="search-button"
+              disabled={isLoading || !username.trim()}
+            >
+              <MagnifyingGlass size={18} aria-hidden="true" />
+              {isLoading ? 'Searching' : 'Search profiles'}
+            </button>
+          </form>
+
+          {error && <p className="error-message" role="alert">{error}</p>}
+        </section>
+
+        {isLoading && (
+          <div className="status-panel" role="status">
+            <span className="loading-indicator" />
+            Fetching public profile
           </div>
         )}
 
-        {/* User Profile */}
         {userData && (
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Left Column - Avatar and basic info */}
-              <div className="md:col-span-1">
-                <div className="text-center md:text-left">
-                  <div className="relative inline-block mb-4">
-                    {showRedacted ? (
-                      <div className="w-32 h-32 rounded-full flex items-center justify-center" style={{ 
-                        backgroundColor: '#21262d', 
-                        border: '1px solid #30363d' 
-                      }}>
-                        <User className="w-16 h-16" style={{ 
-                          color: '#7d8590' 
-                        }} />
-                      </div>
-                    ) : (
-                      <img 
-                        src={userData.avatar_url} 
-                        alt={`${userData.login}'s avatar`}
-                        className="w-32 h-32 rounded-full"
-                        style={{ 
-                          border: '1px solid #30363d' 
-                        }}
-                      />
-                    )}
-                  </div>
-                  
-                  <div className="mb-4">
-                    <h2 className="text-2xl font-bold mb-1" style={{ 
-                      color: '#f0f6fc' 
-                    }}>
-                      {showRedacted ? getRedactedText(userData.name || userData.login) : (userData.name || userData.login)}
-                    </h2>
-                    <p className="text-xl font-light" style={{ 
-                      color: '#7d8590' 
-                    }}>
-                      {showRedacted ? getRedactedText(userData.login) : userData.login}
-                    </p>
-                  </div>
-
-                  <button
-                    onClick={() => setShowRedacted(!showRedacted)}
-                    className="btn btn-secondary flex items-center gap-2 mb-4"
-                  >
-                    {showRedacted ? <Eye size={16} /> : <EyeSlash size={16} />}
-                    {showRedacted ? 'Reveal' : 'Conceal'}
-                  </button>
-
-                  {userData.bio && (
-                    <p className="mb-4" style={{ 
-                      color: '#f0f6fc' 
-                    }}>
-                      {showRedacted ? getRedactedText(userData.bio) : userData.bio}
-                    </p>
-                  )}
-
-                  {userData.location && (
-                    <div className="flex items-center gap-2 mb-4 justify-center md:justify-start">
-                      <MapPin style={{ 
-                        color: '#7d8590' 
-                      }} size={16} />
-                      <span style={{ 
-                        color: '#f0f6fc' 
-                      }}>
-                        {showRedacted ? getRedactedText(userData.location) : userData.location}
-                      </span>
-                    </div>
-                  )}
-                </div>
+          <section className="profile-result" aria-label="GitHub profile result">
+            <div className="profile-toolbar">
+              <div>
+                <p className="eyebrow">Profile result</p>
+                <p className="profile-source">Public GitHub data</p>
               </div>
-
-              {/* Right Column - Stats */}
-              <div className="md:col-span-2">
-                <div className="card">
-                  <h3 className="text-lg font-semibold mb-4" style={{ 
-                    color: '#f0f6fc' 
-                  }}>Profile Statistics</h3>
-                  <div className="grid grid-cols-3 gap-6 text-center">
-                    <div>
-                      <div className="text-2xl font-bold profile-stat-number">
-                        {showRedacted ? '*****' : userData.followers.toLocaleString()}
-                      </div>
-                      <div className="profile-stat">followers</div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold profile-stat-number">
-                        {showRedacted ? '*****' : userData.following.toLocaleString()}
-                      </div>
-                      <div className="profile-stat">following</div>
-                    </div>
-                    <div>
-                      <div className="text-2xl font-bold profile-stat-number">
-                        {showRedacted ? '*****' : userData.public_repos.toLocaleString()}
-                      </div>
-                      <div className="profile-stat">repositories</div>
-                    </div>
-                  </div>
-                </div>
+              <div className="profile-actions">
+                <a
+                  className="profile-link"
+                  href={`https://github.com/${userData.login}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open on GitHub
+                </a>
+                <button
+                  type="button"
+                  className="reveal-button"
+                  onClick={() => setShowRedacted(!showRedacted)}
+                  aria-pressed={!showRedacted}
+                >
+                  {showRedacted ? <Eye size={18} /> : <EyeSlash size={18} />}
+                  {showRedacted ? 'Reveal profile' : 'Hide profile'}
+                </button>
               </div>
             </div>
-          </div>
+
+            <div className="identity-row">
+              <div className="profile-avatar">
+                {showRedacted ? (
+                  <User size={38} aria-label="Avatar hidden" />
+                ) : (
+                  <img src={userData.avatar_url} alt={`${userData.login}'s avatar`} />
+                )}
+              </div>
+              <div className="identity-copy">
+                <p className="eyebrow">GitHub account</p>
+                <h2>{showRedacted ? getRedactedText(userData.name || userData.login) : (userData.name || userData.login)}</h2>
+                <p className="profile-login">
+                  {showRedacted ? getRedactedText(userData.login) : `@${userData.login}`}
+                </p>
+                {userData.bio && (
+                  <p className="profile-bio">
+                    {showRedacted ? getRedactedText(userData.bio) : userData.bio}
+                  </p>
+                )}
+                {userData.location && (
+                  <p className="profile-location">
+                    <MapPin size={16} aria-hidden="true" />
+                    {showRedacted ? getRedactedText(userData.location) : userData.location}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div className="stats-heading">
+              <h3>Public activity</h3>
+              <span>Profile counts</span>
+            </div>
+            <dl className="stats-grid">
+              <div className="stat-item">
+                <dt>Followers</dt>
+                <dd>{showRedacted ? '*****' : userData.followers.toLocaleString()}</dd>
+              </div>
+              <div className="stat-item">
+                <dt>Following</dt>
+                <dd>{showRedacted ? '*****' : userData.following.toLocaleString()}</dd>
+              </div>
+              <div className="stat-item">
+                <dt>Repositories</dt>
+                <dd>{showRedacted ? '*****' : userData.public_repos.toLocaleString()}</dd>
+              </div>
+            </dl>
+          </section>
         )}
 
-        {/* Footer */}
-        <footer className="mt-12 text-center">
-          <p className="text-sm" style={{ color: '#7d8590' }}>
-            🎭 Where your code wears its boldest face. 🎭
-          </p>
-        </footer>
-      </div>
+        {!userData && !isLoading && !error && (
+          <section className="empty-state" aria-live="polite">
+            <div className="empty-mark"><EyeSlash size={22} aria-hidden="true" /></div>
+            <h2>No profile selected</h2>
+            <p>Search a username to view a redacted profile.</p>
+          </section>
+        )}
+      </main>
+
+      <footer className="app-footer">
+        <span>OctoMask</span>
+        <span>Your search stays in this session.</span>
+      </footer>
     </div>
   );
 }
